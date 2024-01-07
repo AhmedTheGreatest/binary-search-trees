@@ -29,11 +29,40 @@ class Tree
   def insert(value, node = @root)
     return nil if value == node.data
 
-    p node.left
     if value < node.data
       node.left.nil? ? node.left = Node.new(value) : insert(value, node.left)
     else
       node.right.nil? ? node.right = Node.new(value) : insert(value, node.right)
     end
+  end
+
+  def delete(value, node = @root)
+    return node if node.nil?
+
+    # Node is in the left subtree
+    if value < node.data
+      node.left = delete(value, node.left)
+    # Node is in the right subtree
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    # Node has been found
+    else
+      # If node has zero or one children
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
+
+      # If node has 2 children, replace the node with the successor node
+      successor_node = left_most(node.right) # Finds the successor node of the node to be deleted
+      node.data = successor_node.data # Copies the sucessor node's data to the node to be deleted
+      node.right = delete(successor_node.data, node.right) # Calls the delete method with the right subtree of the node
+    end
+    node
+  end
+
+  private
+
+  def left_most(node = @root)
+    node = node.left until node.left.nil?
+    node
   end
 end
