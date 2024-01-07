@@ -74,6 +74,36 @@ class Tree
     level_order(queue.shift, queue, &block)
   end
 
+  def preorder(node = @root, &block)
+    return if node.nil?
+
+    yield node.data
+    preorder(node.left, &block)
+    preorder(node.right, &block)
+  end
+
+  def inorder(node = @root, &block)
+    return if node.nil?
+
+    inorder(node.left, &block)
+    yield node.data
+    inorder(node.right, &block)
+  end
+
+  def postorder(node = @root, &block)
+    return if node.nil?
+
+    postorder(node.left, &block)
+    postorder(node.right, &block)
+    yield node.data
+  end
+
+  def height(node = @root)
+    return -1 if node.nil?
+
+    [height(node.left), height(node.right)].max + 1
+  end
+
   private
 
   def left_most(node = @root)
