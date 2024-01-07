@@ -59,6 +59,21 @@ class Tree
     node
   end
 
+  def find(value, node = @root)
+    return node if node.nil? || node.data == value
+
+    value < node.data ? find(value, node.left) : find(value, node.right)
+  end
+
+  def level_order(node = @root, queue = [], &block)
+    yield node.data
+    queue << node.left unless node.left.nil?
+    queue << node.right unless node.right.nil?
+    return if queue.empty?
+
+    level_order(queue.shift, queue, &block)
+  end
+
   private
 
   def left_most(node = @root)
