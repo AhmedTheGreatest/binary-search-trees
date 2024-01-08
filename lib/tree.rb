@@ -133,6 +133,12 @@ class Tree
     false
   end
 
+  def rebalance
+    data = []
+    inorder { |element| data << element }
+    @root = build_tree(data)
+  end
+
   private
 
   def left_most(node = @root)

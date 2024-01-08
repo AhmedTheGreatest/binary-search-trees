@@ -2,9 +2,48 @@
 
 require './lib/tree'
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.insert(0)
-tree.delete(8)
-tree.pretty_print
-tree.postorder { |x| puts "Value: #{x}" }
+tree = Tree.new((Array.new(15) { rand(1..100) }))
+
 puts tree.balanced?
+
+print "Level Order: "
+print (tree.level_order { |node| print "#{node}, " })
+puts ""
+
+print "Pre Order: "
+print (tree.preorder { |node| print "#{node}, " })
+puts ""
+
+print "In Order: "
+print (tree.inorder { |node| print "#{node}, " })
+puts ""
+
+print "Post Order: "
+print (tree.postorder { |node| print "#{node}, " })
+puts ""
+
+10.times do
+  tree.insert(rand(100...200))
+end
+
+puts tree.balanced?
+
+tree.rebalance
+
+puts tree.balanced?
+
+print "Level Order: "
+print (tree.level_order { |node| print "#{node}, " })
+puts ""
+
+print "Pre Order: "
+print (tree.preorder { |node| print "#{node}, " })
+puts ""
+
+print "In Order: "
+print (tree.inorder { |node| print "#{node}, " })
+puts ""
+
+print "Post Order: "
+print (tree.postorder { |node| print "#{node}, " })
+puts ""
