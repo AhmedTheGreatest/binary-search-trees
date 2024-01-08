@@ -104,6 +104,20 @@ class Tree
     [height(node.left), height(node.right)].max + 1
   end
 
+  def depth(node, start = @root)
+    return -1 if start.nil? # Base Case: Returns -1 If the root node is nil
+
+    return 0 if node == start # If the node is the root node return 0
+
+    distance = depth(node, start.left) # Checks the left subtree if it contains the node
+    return distance + 1 if distance >= 0 # If it does then return distance + 1
+
+    distance = depth(node, start.right) # Else checks the right subtree if it contains the node
+    return distance + 1 if distance >= 0 # If it does then return distance + 1
+
+    distance # Returns the depth
+  end
+
   private
 
   def left_most(node = @root)
