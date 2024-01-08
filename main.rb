@@ -7,4 +7,4 @@ tree.insert(0)
 tree.delete(8)
 tree.pretty_print
 tree.postorder { |x| puts "Value: #{x}" }
-puts tree.height
+puts tree.balanced?
