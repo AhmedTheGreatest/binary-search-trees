@@ -4,19 +4,19 @@ require './lib/node'
 
 # A Class representing a Binary Search Tree
 class Tree
-  def initialize(data)
+  def initialize(array)
+    data = array.uniq.sort
     @root = build_tree(data)
   end
 
   def build_tree(data)
     return nil if data.empty?
 
-    sorted_data = data.uniq.sort
-    middle = sorted_data.size / 2
+    middle = data.size / 2
 
-    root = Node.new(sorted_data[middle])
-    root.left = build_tree(sorted_data[0...middle])
-    root.right = build_tree(sorted_data[middle + 1..])
+    root = Node.new(data[middle])
+    root.left = build_tree(data[0...middle])
+    root.right = build_tree(data[middle + 1..])
     root
   end
 
